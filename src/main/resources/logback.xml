@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{yyyy-MM-dd-HH:mm:ss.SSS} app:[ %X{app-name} ] object-id:[ %X{object-id} ] %-5level %logger{36}
+                [%F:%L] - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <timestamp key="bySecond" datePattern="yyyyMMdd'T'HHmmss"/>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/testapp-${bySecond}.log</file>
+        <append>true</append>
+        <!-- set immediateFlush to false for much higher logging throughput -->
+        <immediateFlush>true</immediateFlush>
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>logs/testapp-%d{yyyyMMdd}.log</fileNamePattern>
+            <totalSizeCap>100MB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>%d{yyyy-MM-dd-HH:mm:ss.SSS} app:[ %X{app-name} ] object-id:[ %X{object-id} ] %-5level 
+                [%F:%L] - %msg%n
+        </Pattern>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>
