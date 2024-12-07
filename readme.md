@@ -37,7 +37,7 @@ As the name implies, TokenManager manages the lifecycle of a token set. This set
 
 Message Bus
 
-The *message bus* is also conceptual. This can be implemented as an independent enterprise service bus (ESB) like MuleSoft's **Mule** or **Apache Camel**; stream processors like **Apache Kafka**; or using distributed grids like **Hazelcast**, **Infinispan**, or **redis**. In short, anything that supports a publish/subscribe model. GSML incorporates a simple implementation of this out of the box that currently interacts with the **Security Utilities** back-end. Integrating with pub/sub systems, requires implementing the *EventBroadcaster* and *BroadcastListener* interfaces. We are planning on providing implementations of these interfaces for a few popular ones, though, as of this writing, no decision, as to which ones, have been made.
+The *message bus* is also conceptual. This can be implemented as an independent enterprise service bus (ESB) like MuleSoft's **Mule** or **Apache Camel**; stream processors like **Apache Kafka**; or using distributed grids like **Hazelcast**, **Infinispan**, or **redis**. In short, anything that supports a publish/subscribe model. GSML incorporates a simple implementation of this out of the box that currently interacts with a custom back-end. Integrating with pub/sub systems, requires implementing the *EventBroadcaster* and *BroadcastListener* interfaces. We are planning on providing implementations of these interfaces for a few popular ones, though, as of this writing, no decision, as to which ones, have been made.
 
 TOKEN ISSUER
 
@@ -49,7 +49,7 @@ Token Manager
 
 Despite its simple interface, TokenManager performs certain token functions once it has a token set, so instantiating a TokenManager is independent of creating tokens. TokenManagers manage one token set at a time, but can manage many tokens during the lifetime of the application. However, as we shall see, in an application that is session-oriented (web application, for example), it is suggested to use/associate a session with one TokenManager. TokenManagers are lightweight in nature, even in their threading model, which is implemented using *coroutines*[^1]*.* TokenManager can be viewed as a component, from the application's perspective.
 
-In the above TokenManager component diagram, we can see the exposed interface and their interactions. Notice that **isValid** is dependent on the **isValid** of the IdentityToken and the AccessToken, implying that the validity of the tokens is the responsibility of the tokens themselves. Again, this implies trust on the tokens, via trust on the token issuer. This model allows GSML to "componentize" the tokens, meaning, they can be swapped out for better ones or ones that match a particular environment, or token issuer (e.g., CIAM vs Security Utilities vs SAML, etc).
+In the above TokenManager component diagram, we can see the exposed interface and their interactions. Notice that **isValid** is dependent on the **isValid** of the IdentityToken and the AccessToken, implying that the validity of the tokens is the responsibility of the tokens themselves. Again, this implies trust on the tokens, via trust on the token issuer. This model allows GSML to "componentize" the tokens, meaning, they can be swapped out for better ones or ones that match a particular environment, or token issuer.
 
 ## Token Refreshing/Revoking
 
