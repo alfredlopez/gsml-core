@@ -129,7 +129,7 @@ Currently, we have a Java library available. This is being used in our legacy sy
 In a Maven project, add this dependency to your POM file:
 
         <dependency>
-            <groupId>com.asanasoft.grs</groupId>
+            <groupId>com.asanasoft.gsml</groupId>
             <artifactId>gsml-client-core</artifactId>
             <version>${gsml.version}</version>
         </dependency>
